@@ -96,7 +96,7 @@ looker.plugins.visualizations.add({
         console.log("row: ", row);
         const values_from_row = Object.values(row); 
         radar_config.data.datasets.forEach(dataset => {
-            dataset.data.push({x:row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"], y:row[dataset.name]})
+            dataset.data.push({x:row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value, y:row[dataset.name].value})
         })
       })
       console.log("data2: ", radar_config.data)
