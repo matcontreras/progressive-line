@@ -139,6 +139,8 @@ looker.plugins.visualizations.add({
 
     element._progressive_line = new Chart(element._canvas, progressive_line_config);
 
+    
+
     /*for (const row of data) {
 
         var dataset = {
