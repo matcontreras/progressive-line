@@ -40,7 +40,7 @@ looker.plugins.visualizations.add({
       `;
   
       // Create an element to contain the text.
-      this._canvas = _canvas.appendChild(document.createElement("canvas"));
+      element._canvas = element.appendChild(document.createElement("canvas"));
   
     },
     // Render in response to the data or settings changing
@@ -48,6 +48,12 @@ looker.plugins.visualizations.add({
   
       // Clear any errors from previous updates
       this.clearErrors();
+
+      if (element._canvas != null) {
+        element.removeChild(element._canvas);
+        element._canvas = element.appendChild(document.createElement("canvas"));
+        element._progressive_line = null;
+      }
   
       // Throw some errors and exit if the shape of the data isn't what this chart needs
       if (queryResponse.fields.dimensions.length == 0) {
