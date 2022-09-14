@@ -86,13 +86,17 @@ looker.plugins.visualizations.add({
       })
 
       queryResponse.fields.measure_like.forEach((field) => {
-        const dataset = {label:field.label, data:[]};
+        const dataset = {name:field.name, data:[]};
         radar_config.data.labels.push(field.label)
         radar_config.data.datasets.push(dataset);
       })
 
       data.forEach(row => {
         console.log("row: ", row);
+        const values_from_row = Object.values(row); 
+        radar_config.data.datasets.forEach(dataset => {
+            dataset.data.push({x:row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"], y:row[dataset.name]})
+        })
       })
       
       /*
