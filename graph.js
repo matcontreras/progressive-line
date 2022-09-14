@@ -91,6 +91,17 @@ looker.plugins.visualizations.add({
         }
       };
 
+    const data1 = [];
+    const data2 = [];
+    let prev = 100;
+    let prev2 = 80;
+    for (let i = 0; i < 1000; i++) {
+    prev += 5 - Math.random() * 10;
+    data1.push({x: i, y: prev});
+    prev2 += 5 - Math.random() * 10;
+    data2.push({x: i, y: prev2});
+    }
+
     const progressive_line_config = {
         type: 'line',
         data: {
@@ -99,13 +110,13 @@ looker.plugins.visualizations.add({
             borderColor: Utils.CHART_COLORS.red,
             borderWidth: 1,
             radius: 0,
-            data: [],
+            data: data1,
             },
             {
             borderColor: Utils.CHART_COLORS.blue,
             borderWidth: 1,
             radius: 0,
-            data: [],
+            data: data2,
             }]
         },
         options: {
@@ -125,7 +136,7 @@ looker.plugins.visualizations.add({
     };
 
 
-    for (const row of data) {
+    /*for (const row of data) {
 
         var dataset = {
             borderColor: Utils.CHART_COLORS.red,
