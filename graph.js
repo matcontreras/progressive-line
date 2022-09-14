@@ -88,7 +88,7 @@ looker.plugins.visualizations.add({
 
       data.forEach((row) => {
         const label = row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value;
-        const dataset = {name:label, data:[{x:label, y: row["tdw_resultado_pfin_loja_bot.dummy_real_prod"]}]}
+        const dataset = {name:label, data:[{x:label, y: row["tdw_resultado_pfin_loja_bot.dummy_real_prod"].value}]}
         radar_config.data.labels.push(label)
         radar_config.data.datasets.push(dataset);
       })
