@@ -39,12 +39,8 @@ looker.plugins.visualizations.add({
         </style>
       `;
   
-      // Create a container element to let us center the text.
-      var container = element.appendChild(document.createElement("div"));
-      container.className = "hello-world-vis";
-  
       // Create an element to contain the text.
-      this._textElement = container.appendChild(document.createElement("div"));
+      this._canvas = _canvas.appendChild(document.createElement("canvas"));
   
     },
     // Render in response to the data or settings changing
@@ -135,6 +131,7 @@ looker.plugins.visualizations.add({
         }
     };
 
+    const progressive_line_chart = new Chart(this._canvas, progressive_line_config);
 
     /*for (const row of data) {
 
