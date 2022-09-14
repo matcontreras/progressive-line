@@ -91,13 +91,10 @@ looker.plugins.visualizations.add({
         radar_config.data.datasets.push(dataset);
       })
 
-      for(let index = 0; index < 2; index++) {
-        const dataset = data.forEach(row => {
-            
-        })
-        radar_config.data.datasets.push();
-
-      }
+      data.forEach(row => {
+        console.log("row: ", row);
+      })
+      
       /*
       for (const row of data) {
   
