@@ -2,8 +2,8 @@ looker.plugins.visualizations.add({
     // Id and Label are legacy properties that no longer have any function besides documenting
     // what the visualization used to have. The properties are now set via the manifest
     // form within the admin/visualizations page of Looker
-    id: "spviz_radar",
-    label: "spviz_radar",
+    id: "progressive-line",
+    label: "Progressive Line",
     options: {
       font_size: {
         type: "string",
@@ -30,7 +30,7 @@ looker.plugins.visualizations.add({
       `;
   
       // Create a container element to let us center the text.
-      element._radarcavas = element.appendChild(document.createElement("canvas"));
+      element._canvas = element.appendChild(document.createElement("canvas"));
       element._radar = null;
   
     },
@@ -41,24 +41,24 @@ looker.plugins.visualizations.add({
       this.clearErrors();
   
   
-      if (element._radarcavas != null) {
-        element.removeChild(element._radarcavas);
-        element._radarcavas = element.appendChild(document.createElement("canvas"));
-        element._radar = null;
+      if (element._canvas != null) {
+        element.removeChild(element._canvas);
+        element._canvas = element.appendChild(document.createElement("canvas"));
+        element._progressive_line = null;
       }
       if (queryResponse.fields.dimensions.length == 0) {
         this.addError({ title: "No Dimensions", message: "This chart requires dimensions." });
         return;
       }
   
-      var spviz_radar_colors = ['#dd3333', '#80ce5d', '#f78131', '#369dc1', '#c572d3', '#36c1b3', '#b57052', '#ed69af'];
+      var spviz_radar_colors = ['#f7dc16', '#264fb0', '#f7dc16', '#264fb0'];
   
       var randomScalingFactor = function() {
         return Math.round(Math.random() * 100);
       };
   
       var radar_config = {
-        type: 'radar',
+        type: 'line',
         data: {
           labels: [],
           datasets: []
@@ -69,7 +69,7 @@ looker.plugins.visualizations.add({
           },
           title: {
             display: false,
-            text: 'Chart.js Radar Chart'
+            text: 'Progressive Line Chart'
           },
           scale: {
             ticks: {
@@ -107,7 +107,7 @@ looker.plugins.visualizations.add({
         radar_config.data.datasets.push(dataset);
       }
   
-      element._radar = new Chart(element._radarcavas, radar_config);
+      element._progressive_line = new Chart(element._canvas, radar_config);
   
       // We are done rendering! Let Looker know.
       done()
