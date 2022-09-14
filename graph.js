@@ -85,14 +85,14 @@ looker.plugins.visualizations.add({
         console.log(queryResponse.fields);
       })
 
-      /*for(let index = 0; index < 2; index++) {
+      for(let index = 0; index < 2; index++) {
         const dataset = data.forEach(row => {
             
         })
         radar_config.data.datasets.push();
 
-      }*/
-  
+      }
+      /*
       for (const row of data) {
   
         var dataset = {
@@ -115,6 +115,7 @@ looker.plugins.visualizations.add({
   
         radar_config.data.datasets.push(dataset);
       }
+      */
   
       element._progressive_line = new Chart(element._canvas, radar_config);
   
