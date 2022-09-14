@@ -61,7 +61,8 @@ looker.plugins.visualizations.add({
         type: 'line',
         data: {
           labels: [],
-          datasets: []
+          datasets: [],
+          names: []
         },
         options: {
           legend: {
@@ -86,17 +87,16 @@ looker.plugins.visualizations.add({
       })
 
       data.forEach((row) => {
-        const dataset = {name:row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value, data:[]};
-        radar_config.data.labels.push(row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value)
-
+        const label = row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value;
+        const dataset = {name:label, data:[{x:label, y: row["tdw_resultado_pfin_loja_bot.dummy_real_prod"]}]}
+        radar_config.data.labels.push(label)
         radar_config.data.datasets.push(dataset);
       })
 
-      data.forEach((row) => {
+      /*data.forEach((row, index) => {
         queryResponse.fields.measure_like.forEach(field => {
-            const index = radar_config.data.datasets.findIndex(dataset => dataset.name === row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value)
-            radar_config.data.datasets[index]
-            dataset.data.push({x:row[dataset.name].value, y:row[field.name].value})
+            const data = {x:row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value, y:row[field.name].value}
+            radar_config.data.datasets[index].push(data)
         })
         
       })
