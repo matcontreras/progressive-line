@@ -90,6 +90,7 @@ looker.plugins.visualizations.add({
         radar_config.data.labels.push(field.label)
         radar_config.data.datasets.push(dataset);
       })
+      console.log("data: ", radar_config.data)
 
       data.forEach(row => {
         console.log("row: ", row);
@@ -98,7 +99,7 @@ looker.plugins.visualizations.add({
             dataset.data.push({x:row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"], y:row[dataset.name]})
         })
       })
-      
+      console.log("data2: ", radar_config.data)
       /*
       for (const row of data) {
   
