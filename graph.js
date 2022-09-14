@@ -81,8 +81,14 @@ looker.plugins.visualizations.add({
   
   
       queryResponse.fields.measure_like.forEach(function(field) {
-        radar_config.data.labels.push(field.name);
+        //radar_config.data.labels.push(field.name);
         console.log(queryResponse.fields);
+      })
+
+      queryResponse.fields.measure_like.forEach((field) => {
+        const dataset = {label:field.label, data:[]};
+        radar_config.data.labels.push(field.label)
+        radar_config.data.datasets.push(dataset);
       })
 
       for(let index = 0; index < 2; index++) {
