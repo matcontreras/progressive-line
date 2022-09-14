@@ -58,9 +58,96 @@ looker.plugins.visualizations.add({
         this.addError({title: "No Dimensions", message: "This chart requires dimensions."});
         return;
       }
+
+      const totalDuration = 10000;
+      const delayBetweenPoints = totalDuration / data.length;
+      const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
+      const animation = {
+        x: {
+          type: 'number',
+          easing: 'linear',
+          duration: delayBetweenPoints,
+          from: NaN, // the point is initially skipped
+          delay(ctx) {
+            if (ctx.type !== 'data' || ctx.xStarted) {
+              return 0;
+            }
+            ctx.xStarted = true;
+            return ctx.index * delayBetweenPoints;
+          }
+        },
+        y: {
+          type: 'number',
+          easing: 'linear',
+          duration: delayBetweenPoints,
+          from: previousY,
+          delay(ctx) {
+            if (ctx.type !== 'data' || ctx.yStarted) {
+              return 0;
+            }
+            ctx.yStarted = true;
+            return ctx.index * delayBetweenPoints;
+          }
+        }
+      };
+
+    const progressive_line_config = {
+        type: 'line',
+        data: {
+            datasets: [
+            {
+            borderColor: Utils.CHART_COLORS.red,
+            borderWidth: 1,
+            radius: 0,
+            data: [],
+            },
+            {
+            borderColor: Utils.CHART_COLORS.blue,
+            borderWidth: 1,
+            radius: 0,
+            data: [],
+            }]
+        },
+        options: {
+            animation,
+            interaction: {
+            intersect: false
+            },
+            plugins: {
+            legend: false
+            },
+            scales: {
+            x: {
+                type: 'linear'
+            }
+            }
+        }
+    };
+
+
+    for (const row of data) {
+
+        var dataset = {
+            borderColor: Utils.CHART_COLORS.red,
+            borderWidth: 1,
+            radius: 0,
+            data: [],
+        };
   
+        queryResponse.fields.measure_like.forEach((field) => {
+          dataset.data.push(row[field.name].value);
+        })
+  
+        //dataset.borderColor = spviz_radar_colors[radar_config.data.datasets.length % spviz_radar_colors.length];
+        //dataset.pointBackgroundColor = spviz_radar_colors[radar_config.data.datasets.length % spviz_radar_colors.length];
+  
+        progressive_line_config.data.datasets.push(dataset);
+    }
+  
+
+
       // Grab the first cell of the data
-      var firstRow = data[0];
+      /*var firstRow = data[0];
       var firstCell = firstRow[queryResponse.fields.dimensions[0].name];
   
       // Insert the data into the page
@@ -71,7 +158,7 @@ looker.plugins.visualizations.add({
         this._textElement.className = "hello-world-text-small";
       } else {
         this._textElement.className = "hello-world-text-large";
-      }
+      }*/
   
       // We are done rendering! Let Looker know.
       done()
