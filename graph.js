@@ -89,7 +89,7 @@ looker.plugins.visualizations.add({
         radar_config.data.datasets.push({
           label:ml.label, 
           name:ml.name, 
-          borderColor: colors.index,
+          borderColor: colors[index],
           borderWidth: 1,
           radius: 0,
           data:[]
@@ -100,7 +100,7 @@ looker.plugins.visualizations.add({
       data.forEach((row) => {
         radar_config.data.datasets.forEach(ds => {
           if(row[ds.name]) {
-            ds.data.push(row[ds.name].value)
+            ds.data.push(row[ds.name].rendered)
           }
         })
       })
