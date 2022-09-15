@@ -51,11 +51,7 @@ looker.plugins.visualizations.add({
         return;
       }
   
-      var spviz_radar_colors = ['#f7dc16', '#264fb0', '#f7dc16', '#264fb0'];
-  
-      var randomScalingFactor = function() {
-        return Math.round(Math.random() * 100);
-      };
+      var colors = {0:'rgb(247, 220, 22, 1)', 1:'rgb(38, 79, 176, 1)'}
   
       var radar_config = {
         type: 'line',
@@ -89,11 +85,11 @@ looker.plugins.visualizations.add({
       })
 
       //config dataset
-      queryResponse.fields.measure_like.forEach((ml) => {
+      queryResponse.fields.measure_like.forEach((ml, index) => {
         radar_config.data.datasets.push({
           label:ml.label, 
           name:ml.name, 
-          borderColor: "rgb(247, 220, 22, 1)",
+          borderColor: colors.index,
           borderWidth: 1,
           radius: 0,
           data:[]
