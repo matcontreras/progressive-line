@@ -92,9 +92,8 @@ looker.plugins.visualizations.add({
           datasets: []
         },
         options: {
-          title: {
-            display: false,
-            text: 'Progressive Line Chart'
+          plugins: {
+            legend: false
           },
           animation,
           interaction: {
