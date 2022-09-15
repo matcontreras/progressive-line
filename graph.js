@@ -76,7 +76,11 @@ looker.plugins.visualizations.add({
         }
       };
   
+
+      //sort data
+      data.sort((a,b) => a.tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month.value - b.tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month.value);
       console.log(data);
+
 
       //config labels
       data.forEach((row) => {
@@ -100,7 +104,7 @@ looker.plugins.visualizations.add({
       data.forEach((row) => {
         radar_config.data.datasets.forEach(ds => {
           if(row[ds.name]) {
-            ds.data.push(row[ds.name].value/1000)
+            ds.data.push(row[ds.name].value)
           }
         })
       })
