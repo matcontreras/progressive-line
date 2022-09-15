@@ -50,6 +50,38 @@ looker.plugins.visualizations.add({
         this.addError({ title: "No Dimensions", message: "This chart requires dimensions." });
         return;
       }
+
+      const totalDuration = 10000;
+      const delayBetweenPoints = totalDuration / data.length;
+      const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
+      const animation = {
+        x: {
+          type: 'number',
+          easing: 'linear',
+          duration: delayBetweenPoints,
+          from: NaN, // the point is initially skipped
+          delay(ctx) {
+            if (ctx.type !== 'data' || ctx.xStarted) {
+              return 0;
+            }
+            ctx.xStarted = true;
+            return ctx.index * delayBetweenPoints;
+          }
+        },
+        y: {
+          type: 'number',
+          easing: 'linear',
+          duration: delayBetweenPoints,
+          from: previousY,
+          delay(ctx) {
+            if (ctx.type !== 'data' || ctx.yStarted) {
+              return 0;
+            }
+            ctx.yStarted = true;
+            return ctx.index * delayBetweenPoints;
+          }
+        }
+      };
   
       var colors = {0:'rgb(38, 79, 176, 1)', 1:'rgb(247, 220, 22, 1)'}
   
@@ -68,9 +100,16 @@ looker.plugins.visualizations.add({
             display: false,
             text: 'Progressive Line Chart'
           },
-          scale: {
-            ticks: {
-              beginAtZero: true
+          animation,
+          interaction: {
+            intersect: false
+          },
+          plugins: {
+            legend: false
+          },
+          scales: {
+            x: {
+              type: 'linear'
             }
           }
         }
@@ -78,7 +117,6 @@ looker.plugins.visualizations.add({
   
 
       //sort data
-      console.log(data);
       data.sort((a,b) => a["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value - b["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value);
       console.log(data);
 
