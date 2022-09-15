@@ -78,7 +78,8 @@ looker.plugins.visualizations.add({
   
 
       //sort data
-      data.sort((a,b) => a.tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month.value - b.tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month.value);
+      console.log(data);
+      data.sort((a,b) => a.tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month[0] - b.tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month[0]);
       console.log(data);
 
 
