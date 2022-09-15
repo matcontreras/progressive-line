@@ -85,12 +85,11 @@ looker.plugins.visualizations.add({
   
       var colors = {0:'rgb(38, 79, 176, 1)', 1:'rgb(247, 220, 22, 1)'}
   
-      var radar_config = {
+      var line_progressive_config = {
         type: 'line',
         data: {
           labels: [],
-          datasets: [],
-          names: []
+          datasets: []
         },
         options: {
           legend: {
@@ -110,18 +109,18 @@ looker.plugins.visualizations.add({
 
       //sort data
       data.sort((a,b) => a["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value - b["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value);
-      console.log(data);
+      console.log(queryResponse);
 
 
       //config labels
       data.forEach((row) => {
-        const label = row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value;
-        radar_config.data.labels.push(label)
+        const label = "Dia do mês: " . row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value;
+        line_progressive_config.data.labels.push(label)
       })
 
       //config dataset
       queryResponse.fields.measure_like.forEach((ml, index) => {
-        radar_config.data.datasets.push({
+        line_progressive_config.data.datasets.push({
           label:ml.label, 
           name:ml.name, 
           borderColor: colors[index],
@@ -133,7 +132,7 @@ looker.plugins.visualizations.add({
 
       //add data to dataset
       data.forEach((row) => {
-        radar_config.data.datasets.forEach(ds => {
+        line_progressive_config.data.datasets.forEach(ds => {
           if(row[ds.name]) {
             if(row[ds.name].value == null) {
               ds.data.push(0)
@@ -145,7 +144,7 @@ looker.plugins.visualizations.add({
       })
 
   
-      element._progressive_line = new Chart(element._canvas, radar_config);
+      element._progressive_line = new Chart(element._canvas, line_progressive_config);
   
       // We are done rendering! Let Looker know.
       done()
