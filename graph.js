@@ -80,12 +80,7 @@ looker.plugins.visualizations.add({
         }
       };
   
-  
-      queryResponse.fields.measure_like.forEach(function(field) {
-        //radar_config.data.labels.push(field.name);
-        console.log(queryResponse.fields);
-      })
-
+      console.log(data);
 
       //config labels
       data.forEach((row) => {
@@ -114,39 +109,6 @@ looker.plugins.visualizations.add({
         })
       })
 
-      /*data.forEach((row, index) => {
-        queryResponse.fields.measure_like.forEach(field => {
-            const data = {x:row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value, y:row[field.name].value}
-            radar_config.data.datasets[index].push(data)
-        })
-        
-      })
-
-      console.log("data2: ", radar_config.data)
-      /*
-      for (const row of data) {
-  
-        var dataset = {
-          label: null,
-          backgroundColor: 'rgba(0,0,0,0)',
-          data: []
-        };
-  
-        queryResponse.fields.dimensions.forEach(function(field) {
-          dataset.label = dataset.label == null ? "" : (dataset.label + " ");
-          dataset.label = dataset.label + row[field.name].value;
-        })
-  
-        queryResponse.fields.measure_like.forEach(function(field) {
-          dataset.data.push(row[field.name].value);
-        })
-  
-        dataset.borderColor = spviz_radar_colors[radar_config.data.datasets.length % spviz_radar_colors.length];
-        dataset.pointBackgroundColor = spviz_radar_colors[radar_config.data.datasets.length % spviz_radar_colors.length];
-  
-        radar_config.data.datasets.push(dataset);
-      }
-      */
   
       element._progressive_line = new Chart(element._canvas, radar_config);
   
