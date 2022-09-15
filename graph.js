@@ -86,11 +86,32 @@ looker.plugins.visualizations.add({
         console.log(queryResponse.fields);
       })
 
+
+      //config labels
       data.forEach((row) => {
         const label = row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value;
-        const dataset = {name:label, data:[{x:label, y: row["tdw_resultado_pfin_loja_bot.dummy_real_prod"].value}]}
         radar_config.data.labels.push(label)
-        radar_config.data.datasets.push(dataset);
+      })
+
+      //config dataset
+      queryResponse.fields.measure_like.forEach((ml) => {
+        radar_config.data.datasets.push({
+          label:ml.label, 
+          name:ml.name, 
+          borderColor: "rgb(247, 220, 22, 1)",
+          borderWidth: 1,
+          radius: 0,
+          data:[]
+        });
+      })
+
+      //add data to dataset
+      data.forEach((row) => {
+        radar_config.data.datasets.forEach(ds => {
+          if(row[ds.name]) {
+            ds.data.push(row[ds.name].value)
+          }
+        })
       })
 
       /*data.forEach((row, index) => {
