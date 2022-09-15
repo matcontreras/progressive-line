@@ -100,18 +100,7 @@ looker.plugins.visualizations.add({
             display: false,
             text: 'Progressive Line Chart'
           },
-          animation,
-          interaction: {
-            intersect: false
-          },
-          plugins: {
-            legend: false
-          },
-          scales: {
-            x: {
-              type: 'linear'
-            }
-          }
+          animation
         }
       };
   
