@@ -51,7 +51,7 @@ looker.plugins.visualizations.add({
         return;
       }
   
-      var colors = {0:'rgb(247, 220, 22, 1)', 1:'rgb(38, 79, 176, 1)'}
+      var colors = {0:'rgb(38, 79, 176, 1)', 1:'rgb(247, 220, 22, 1)'}
   
       var radar_config = {
         type: 'line',
@@ -95,7 +95,7 @@ looker.plugins.visualizations.add({
           label:ml.label, 
           name:ml.name, 
           borderColor: colors[index],
-          borderWidth: 1,
+          borderWidth: 2,
           radius: 0,
           data:[]
         });
