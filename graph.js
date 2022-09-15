@@ -105,7 +105,11 @@ looker.plugins.visualizations.add({
       data.forEach((row) => {
         radar_config.data.datasets.forEach(ds => {
           if(row[ds.name]) {
-            ds.data.push(row[ds.name].value)
+            if(row[ds.name].value == null) {
+              ds.data.push(0)
+            } else {
+              ds.data.push(row[ds.name].value)
+            }
           }
         })
       })
