@@ -121,7 +121,7 @@ looker.plugins.visualizations.add({
       //config dataset
       queryResponse.fields.measure_like.forEach((ml, index) => {
         line_progressive_config.data.datasets.push({
-          label:ml.label, 
+          label:ml.field_group_variant, 
           name:ml.name, 
           borderColor: colors[index],
           borderWidth: 2,
