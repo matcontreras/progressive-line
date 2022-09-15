@@ -100,7 +100,7 @@ looker.plugins.visualizations.add({
       data.forEach((row) => {
         radar_config.data.datasets.forEach(ds => {
           if(row[ds.name]) {
-            ds.data.push(row[ds.name].rendered)
+            ds.data.push(row[ds.name].value/1000)
           }
         })
       })
