@@ -92,9 +92,6 @@ looker.plugins.visualizations.add({
           datasets: []
         },
         options: {
-          legend: {
-            position: 'bottom',
-          },
           title: {
             display: false,
             text: 'Progressive Line Chart'
@@ -114,7 +111,7 @@ looker.plugins.visualizations.add({
 
       //config labels
       data.forEach((row) => {
-        const label = "Dia do mês: " + row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value;
+        const label = row["tdw_resultado_pfin_loja_bot.dat_referencia_day_of_month"].value;
         line_progressive_config.data.labels.push(label)
       })
 
